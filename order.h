@@ -30,5 +30,6 @@ int delete_order_item( int order_item_id );
 int add_item_to_order_list( order_item_t *new_order, int save );
 int write_order_to_file();
 int read_order_from_file();
+int confirm_order();
 
 #endif

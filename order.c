@@ -31,7 +31,7 @@ int create_item_order( char *customer_name, int id, int quantity) {
     }
     // Check if the quantity is available
     if (item->quantity < quantity) {
-        printf("Quantity not available.\n");
+        printf("Quantity not available for item %d\n", id);
         return 0;
     }
     // Create the order item
@@ -99,7 +99,7 @@ int write_order_to_file() {
 // Function to read order list from file
 int read_order_from_file() {
     // Open the file
-    FILE *fp = fopen("order.csv", "r");
+    FILE *fp = fopen("orders.csv", "r");
     if(fp == NULL) {
         printf("Error opening file.\n");
         return 0;
@@ -182,7 +182,11 @@ void print_all_order() {
     // Print the order items
     while(current != NULL) {
         if(strcmp(current->customer_name, customer_name) == 0) {
-            printf("%s,%d,%d,%d\n", current->customer_name, current->product_id, current->quantity, current->order_status);
+            printf("Customer Name: %s\n", current->customer_name);
+            printf("Product ID: %d\n", current->product_id);
+            printf("Quantity: %d\n", current->quantity);
+            printf("Order Status: %d\n", current->order_status);
+            printf("\n");
         }
         current = current->next;
     }
@@ -234,4 +238,28 @@ int delete_order_item( int order_item_id ){
     write_order_to_file();
     return 1;
 
+}
+
+// Function to confirm an order
+int confirm_order() {
+    // Reset the order list
+    reset_order_list();
+    // Check if the order list is empty
+    if(order_list_head == NULL) {
+        printf("Order list is empty.\n");
+        return 0;
+    }
+
+    // Use a temporary pointer for iteration
+    order_item_t *current = order_list_head;
+
+    // Print the order items
+    while(current != NULL) {
+        if(strcmp(current->customer_name, customer_name) == 0) {
+            current->order_status = 1;
+        }
+        current = current->next;
+    }
+    write_order_to_file();
+    return 1;
 }
