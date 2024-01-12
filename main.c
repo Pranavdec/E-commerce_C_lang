@@ -42,7 +42,8 @@ int main(){
             printf("2. Edit Item\n");
             printf("3. Delete Item\n");
             printf("4. Print Item List\n");
-            printf("5. Exit\n");
+            printf("5. Report\n");
+            printf("6. Exit\n ");
             
             int option_1;
             scanf("%d", &option_1);
@@ -87,6 +88,10 @@ int main(){
                 break;
 
             case 5:
+                generate_report();
+                break;
+
+            case 6:
                 running = 0;
                 break;
 

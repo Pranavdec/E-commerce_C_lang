@@ -263,3 +263,34 @@ int confirm_order() {
     write_order_to_file();
     return 1;
 }
+
+// Function to generate a report
+void generate_report(){
+    reset_order_list();
+    // Check if the order list is empty
+    if(order_list_head == NULL) {
+        printf("Order list is empty.\n");
+        return;
+    }
+
+    int total = 0;
+    int total_quantity = 0;
+    while (order_list_head->next != NULL)
+    {
+        if(order_list_head->order_status == 1) {
+            item_t *item = get_item(order_list_head->product_id);
+            total += item->price * order_list_head->quantity;
+            total_quantity += order_list_head->quantity;
+        }
+        order_list_head = order_list_head->next;
+    }
+
+    if(order_list_head->order_status == 1) {
+        item_t *item = get_item(order_list_head->product_id);
+        total += item->price * order_list_head->quantity;
+        total_quantity += order_list_head->quantity;
+    }
+
+    printf("Total amount: %d\n", total);
+    printf("Total quantity: %d\n", total_quantity);
+}
