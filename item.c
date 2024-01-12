@@ -95,7 +95,7 @@ int read_itemlist_from_file() {
     for (int i = 0; i < item_count; i++) {
         item_t *new_item = (item_t *)malloc(sizeof(item_t));
         if (new_item == NULL) {
-            printf("Error creating new item\n");
+            printf("Error allocating memory\n");
             return 0;
         }
 
@@ -180,7 +180,7 @@ int add_item_to_list( item_t *new_item, int save ){
 // Function to print the global item list
 void print_item_list(){
     reset_item_list_head();
-    while(item_list_head != NULL){
+    while(item_list_head->next != NULL){
         printf("Item ID: %d\n", item_list_head->id);
         printf("Item Name: %s\n", item_list_head->name);
         printf("Item Description: %s\n", item_list_head->description);
@@ -190,6 +190,13 @@ void print_item_list(){
         printf("\n");
         item_list_head = item_list_head->next;
     }
+    printf("Item ID: %d\n", item_list_head->id);
+    printf("Item Name: %s\n", item_list_head->name);
+    printf("Item Description: %s\n", item_list_head->description);
+    printf("Item Category: %s\n", item_list_head->category);
+    printf("Item Price: %f\n", item_list_head->price);
+    printf("Item Quantity: %d\n", item_list_head->quantity);
+    printf("\n");
 
 }
 
@@ -326,4 +333,16 @@ int edit_item(int id) {
     printf("Item edited successfully\n");
     write_itemlist_to_file();
     return 1;
+}
+
+// Get an item from the global item list
+item_t *get_item(int id) {
+    reset_item_list_head();
+    while (item_list_head != NULL) {
+        if (item_list_head->id == id) {
+            return item_list_head;
+        }
+        item_list_head = item_list_head->next;
+    }
+    return NULL;
 }

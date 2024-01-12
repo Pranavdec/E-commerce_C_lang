@@ -33,5 +33,6 @@ int edit_item( int id );
 int add_item_to_list( item_t *item, int save );
 int write_itemlist_to_file();
 int read_itemlist_from_file();
+item_t *get_item( int id );
 
 #endif

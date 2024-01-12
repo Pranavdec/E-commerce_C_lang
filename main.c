@@ -10,6 +10,7 @@
  */
 #include "globals.h"
 #include "item.h"
+#include "order.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,6 +18,9 @@
 // Global Variables
 item_t *item_list_head = NULL;
 int item_count = 0;
+order_item_t *order_list_head = NULL;
+int order_count = 0;
+char *customer_name = NULL;
 
 int main(){
     read_itemlist_from_file();
@@ -26,7 +30,12 @@ int main(){
     // create_item("Banana", "A fruit", "Fruits", 30.0, 100);
     // create_item("Mango", "A fruit", "Fruits", 40.0, 100);
     // delete_item(2);
-    edit_item(1);
+    // edit_item(1);
     print_item_list();
+
+    customer_name = "Pranav1";
+    // create_item_order(customer_name, 1, 10);
+    // create_item_order(customer_name, 0, 20);
+    print_all_order();
 
 }
